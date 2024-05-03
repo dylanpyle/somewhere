@@ -6,7 +6,7 @@ and updates a JSON file with it when it changes.
 ## Usage
 
 ```
-$ deno run --allow-run --allow-read --allow-write somewhere.ts
+$ deno run -A http://deno.land/x/somewhere/somewhere.ts
 ```
 
 Setting a cron job or other method to run this regularly is left as an exercise
