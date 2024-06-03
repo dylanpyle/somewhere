@@ -27,11 +27,22 @@ const fetchLocationCommand = new Deno.Command("shortcuts", {
 
 async function fetchLocation(): Promise<Location> {
   const output = await fetchLocationCommand.output();
+
   const locationUint8 = output.stdout;
   const locationString = new TextDecoder().decode(locationUint8);
   const [latString, lngString] = locationString.split(",");
+
+  if (!latString || !lngString) {
+    throw new Error(`Unexpected location output: ${locationString}`);
+  }
+
   const lat = round(parseFloat(latString), LOCATION_DECIMAL_PLACES);
   const lng = round(parseFloat(lngString), LOCATION_DECIMAL_PLACES);
+
+  if (Number.isNaN(lat) || Number.isNaN(lng)) {
+    throw new Error(`Could not parse location: ${locationString}`);
+  }
+
   return { lat, lng };
 }
 
