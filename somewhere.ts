@@ -1,6 +1,6 @@
 const MINIMUM_UPDATE_THRESHOLD = 24 * 60 * 60 * 1000;
 const LOG_FILE_NAME = "somewhere.json";
-const LOCATION_DECIMAL_PLACES = 2;
+const LOCATION_DECIMAL_PLACES = 1;
 
 interface Location {
   lat: number;
