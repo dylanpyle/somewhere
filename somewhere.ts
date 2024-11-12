@@ -5,6 +5,9 @@ const LOCATION_DECIMAL_PLACES = 1;
 interface Location {
   lat: number;
   lng: number;
+  city: string;
+  state: string;
+  region: string;
 }
 
 interface LocationLog extends Location {
@@ -30,7 +33,7 @@ async function fetchLocation(): Promise<Location> {
 
   const locationUint8 = output.stdout;
   const locationString = new TextDecoder().decode(locationUint8);
-  const [latString, lngString] = locationString.split(",");
+  const [latString, lngString, city, state, region] = locationString.split("|");
 
   if (!latString || !lngString) {
     throw new Error(`Unexpected location output: ${locationString}`);
@@ -43,7 +46,7 @@ async function fetchLocation(): Promise<Location> {
     throw new Error(`Could not parse location: ${locationString}`);
   }
 
-  return { lat, lng };
+  return { lat, lng, city, state, region };
 }
 
 async function readPreviousLocations(): Promise<LocationLog[] | null> {
@@ -77,7 +80,7 @@ async function writeLocation(options: WriteLocationOptions) {
   ];
 
   const newLogFile: LogFile = { locations: newLocations };
-  const newLogFileContent = JSON.stringify(newLogFile);
+  const newLogFileContent = JSON.stringify(newLogFile, null, 2);
   await Deno.writeTextFile(LOG_FILE_NAME, newLogFileContent);
 }
 

@@ -35,8 +35,7 @@ hours old.
 
 ## Dependencies
 
-- Relies on a tiny macOS Shortcut to retrieve the device location;
-  [install it here](https://www.icloud.com/shortcuts/84806ea73cd943ab8888509a36fd8038).
+- Relies on a tiny macOS Shortcut to retrieve the device location; see `./somewhere-location.shortcut`.
   Simpler and caused fewer headaches than signing the app for CoreLocation access.
 - deno ~1.41.3
 
